@@ -6,9 +6,9 @@ A JavaScript date range selector for everyone.
 
 UglyDate handles date ranges well and that's all. As a purpose specific component it will solve this one problem perfectly, without the bloat of extra code for unneeded features. UglyDate is inspired by the date selector on [Google Flights](http://google.com/travel). 
 
-![Mobile](mobile.gif)
+![Mobile](https://github.com/jkosoy/UglyDate/raw/master/mobile.gif)
 
-![Desktop](desktop.gif)
+![Desktop](https://github.com/jkosoy/UglyDate/raw/master/desktop.gif)
 
 
 ### Features
