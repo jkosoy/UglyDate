@@ -21,6 +21,3 @@ Besides being open source, included in this repository is a `prototypes` directo
 
 ### Ugly Theme™
 This component is deliberately terrible looking. Developers cannot get away with simply installing this component without designer support.
-
-### Minimal
-With just a single dependancy, UglyDate can be installed statically or via your favorite package manager. The entire minified codebase is 10kb.
