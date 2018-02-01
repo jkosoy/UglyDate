@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UglyDate Demo</title>
+	<script type="text/javascript" src="../../dist/uglydate.js"></script>
+	<link rel="stylesheet" type="text/css" href="./styles.css">
+	<link rel="stylesheet" type="text/css" href="./calendar.css">
+</head>
+<body>
+
+	<div class="container">
+		<!-- date picker -->
+		<div class="uglyDateSelector" data-uglydate-large-screen-width="585">
+
+			<span class="start-date">
+				<label for="start-date" class="uglydate-hide">Start Date</label>
+			    <input type="date" name="start-date" id="start-date" placeholder="Select A Date" min="2017-12-07" max="2018-12-05" />
+			</span>
+
+			<span class="end-date uglydate-hide">
+				<label for="end-date" class="uglydate-hide">End Date</label>
+			    <input type="date" name="end-date" id="end-date" placeholder="Select A Date" min="2017-12-08" max="2018-12-06" />
+		   </span>
+		</div>
+		<!-- end date picker -->
+
+	</div>
+
+	<script type="text/javascript">
+		var ud = new UglyDate({
+			"selector": ".uglyDateSelector",
+			"startDateSelector": ".start-date",
+			"endDateSelector": ".end-date"
+		})
+	</script>
+</body>
+</html>

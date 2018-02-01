@@ -1,0 +1,59 @@
+{
+  "name": "uglydate",
+  "version": "1.0.0",
+  "description": "A JavaScript date range selector for everyone.",
+  "main": "dist/uglydate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "keywords": [
+    "date picker",
+    "date range",
+    "date selector",
+    "date range picker",
+    "date range selector",
+    "date"
+  ],
+  "author": "Jamie Kosoy",
+  "license": "MIT",
+  "dependencies": {
+    "dateformat": "^3.0.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-module-resolver": "^3.0.0",
+    "babel-plugin-wildcard": "^4.0.0",
+    "babel-preset-env": "^1.6.1",
+    "source-map-explorer": "^1.5.0",
+    "uglifyjs-webpack-plugin": "^1.1.8",
+    "webpack": "^3.10.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "cwd": "babelrc",
+          "root": [
+            "./"
+          ],
+          "alias": {
+            "DateFormat": "./node_modules/dateformat/lib/dateformat",
+            "Lib": "./src/lib",
+            "Utility": "./src/utility/utility"
+          }
+        }
+      ],
+      [
+        "wildcard"
+      ]
+    ]
+  }
+}

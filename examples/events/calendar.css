@@ -1,0 +1,331 @@
+/* these are the styles you'd want to theme */
+.uglydate-hide {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px); 
+}
+
+.js-uglydate-calendar {
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	transition: 500ms cubic-bezier(.55,0,.1,1);
+	transform: translate3d(0, 100vh, 0);
+	
+	/* make this on top of everything */
+	z-index: 999999;
+}
+
+.js-uglydate-calendar.uglydate-hide {
+	display: none;
+}
+
+.js-uglydate-calendar.js-uglydate-in {
+	transform: none;
+}
+
+.js-uglydate-nav-button {
+	display:none;
+
+	position: absolute;
+	z-index: 2;
+	cursor: pointer;
+	border: 0;
+	background: none;
+	color: inherit;
+
+	/* skin below */
+	width: 25px;
+	height: 25px;
+	top: calc(50% - 10px);
+}
+
+.js-uglydate-nav-button:hover {
+	/* skin below */
+	background: maroon;
+}
+
+.js-uglydate-prev-button {
+	/* skin below */
+	left: -12.5px;
+	background: turquoise;
+}
+
+.js-uglydate-nav-button.js-uglydate-nav-button-disabled,
+.js-uglydate-nav-button.js-uglydate-nav-button-disabled:hover {
+	/* skin below */
+	background: gray;
+}
+
+
+.js-uglydate-next-button {
+	/* skin below */
+	right: -12.5px;
+	background: turquoise;
+}
+
+.js-uglydate-header {
+	position: fixed;
+	display: flex;
+	width: 100%;
+
+    /* skin below */
+	background: red;
+	font-family: "Impact";
+	font-size: 1.5rem;
+	color: orange;
+	padding-bottom: 30px;
+	z-index: 2;
+}
+
+.js-uglydate-calendar-container-element {
+	position: absolute;
+	width: 100%;
+	overflow: auto;
+	z-index: 1;
+
+	/* skin below */
+	background: lime;
+	top: 66px;
+	height: calc(100vh - 30px - 66px);
+}
+
+
+/* this hide the scrollbar, but not sure if we want that */
+.js-uglydate-calendar-container-element::-webkit-scrollbar {
+	background: transparent;
+	width: 0px;
+}
+
+.js-uglydate-calendar-container-element::::-webkit-scrollbar-thumb {
+	background: transparent;
+}
+/* end hiding scrollbar */
+
+.js-uglydate-footer {
+	position: absolute;
+	top: calc(100vh - 40px);
+	left: 0;
+	width: 100%;
+	z-index: 2;
+
+	/* skin below */
+	background: red;
+	height: 40px;
+}
+
+.js-uglydate-done-button {
+	cursor: pointer;
+	position: absolute;
+
+	/* skin below */
+	right: 20px;
+	font-family: "Impact";
+	background: yellow;
+	color: black;
+	padding: 10px;
+}
+
+.js-uglydate-header-day {
+	flex: 0 0 14.285714286%; /* 100 / 7 */
+	text-align: center;
+
+}
+
+/* S M T Th W F block for each month. */
+.js-uglydate-month-container .js-uglydate-header {
+	display: none;
+}
+
+.js-uglydate-month-header {
+    /* skin below */
+	font-family: "Comic Sans MS";
+	color: blue;
+}
+
+.js-uglydate-day-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.js-uglydate-day {
+	display: inline-block;
+	flex: 0 0 14.285714286%; /* 100 / 7 */
+	text-align: center;
+	width: 14.285714286%;
+	justify-content: center;
+	vertical-align: middle;
+	align-self: center;
+	height: 14.285714286vw;
+	border: 0;
+	background: none;
+	color: inherit;
+    /* skin below */
+	padding: 5px;
+}
+
+.js-uglydate-day-button {
+	display: flex;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    /* skin below */
+	font-family: "Comic Sans MS";
+}
+
+.js-uglydate-day:hover .js-uglydate-day-button {
+    /* skin below */
+	background: purple;
+	border-radius: 100px;
+}
+
+.js-uglydate-day.js-uglydate-is-today {
+    /* skin below */
+	color: red;
+}
+
+.js-uglydate-day.js-uglydate-prev-month-day,
+.js-uglydate-day.js-uglydate-next-month-day {
+	visibility: hidden;
+}
+
+.js-uglydate-day.js-uglydate-is-disabled-date {
+    /* skin below */
+	opacity: 0.5;
+}
+
+.js-uglydate-day.js-uglydate-is-disabled-date:hover .js-uglydate-day-button {
+	background: transparent;
+}
+
+.js-uglydate-day.js-uglydate-is-day-within-range {
+    /* skin below */
+	background: rgba(255, 0, 255, 0.5);
+}
+
+.js-uglydate-day.js-uglydate-is-selected-day .js-uglydate-day-button,
+.js-uglydate-day.js-uglydate-is-selected-day:hover .js-uglydate-day-button {
+    /* skin below */
+	background: yellow;
+}
+
+.js-uglydate-day.js-uglydate-is-selected-day {
+    /* skin below */
+	background: transparent;
+}
+
+.js-uglydate-day.js-uglydate-is-selected-start-day .js-uglydate-day-button,
+.js-uglydate-day.js-uglydate-is-selected-start-day:hover .js-uglydate-day-button {
+    /* skin below */
+	border-radius: 100px 0 0 100px;
+}
+
+.js-uglydate-day.js-uglydate-is-selected-end-day .js-uglydate-day-button,
+.js-uglydate-day.js-uglydate-is-selected-end-day:hover .js-uglydate-day-button {
+    /* skin below */
+	border-radius: 0 100px 100px 0;
+}
+
+.js-uglydate-day.js-uglydate-is-selected-end-day.js-uglydate-is-selected-start-day .js-uglydate-day-button,
+.js-uglydate-day.js-uglydate-is-selected-end-day.js-uglydate-is-selected-start-day:hover .js-uglydate-day-button {
+    /* skin below */
+	border-radius: 100px;
+}
+
+@media screen and (min-width: 585px) {
+	.js-uglydate-text-input {
+		position: relative;
+	}
+
+	.js-uglydate-calendar {
+		position: absolute;
+		top: auto;
+		left: auto;
+		z-index: auto;
+		transition: none;
+
+	    /* skin below */
+		width: 500px;
+		border:1px solid black;
+		padding: 20px;
+		background: lime;
+	}
+
+	.js-uglydate-calendar,
+	.js-uglydate-calendar.js-uglydate-in {
+	    /* skin below, this centers the date picker on desktop but i have no idea what the number means. */
+		transform: translate3d(-149px, 0, 0);
+	}
+
+	.js-uglydate-header {
+		position: static;
+	}
+
+	.js-uglydate-footer {
+		display: none;
+	}
+
+	.js-uglydate-calendar-container-element {
+		position: static;
+		width: auto;
+		overflow: inherit;
+		height: 0;
+		top: auto;
+		background: transparent;
+
+		display: flex;
+		flex-wrap: nowrap;
+		overflow: visible;
+		width: 100%;
+		height: 100%;
+	}
+
+	.js-uglydate-month-container {
+	    width: 50%;
+	    flex: none;
+
+	    /* skin below */
+	    padding: 0 10px;
+	}
+
+	.js-uglydate-day-container {
+		height: 200px; /* skin this, height less the header */
+	}
+
+	.js-uglydate-day {
+		height: 30px; /* skin this, easiest to just calculate the height from above and hard code */
+	}
+	
+	.js-uglydate-header {
+		display: none;
+	}
+
+	.js-uglydate-nav-button {
+		display: block;
+	}
+
+	.js-uglydate-calendar-scroll-viewport {
+		overflow: hidden;
+	}
+
+	/* S M T Th W F block for each month. */
+	.js-uglydate-month-container .js-uglydate-header {
+		display: flex;
+
+	    /* skin below */		
+		padding: 0;
+		font-size: 1rem;
+	}
+
+}
