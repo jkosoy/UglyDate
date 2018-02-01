@@ -61,7 +61,7 @@ window["UglyDate"] =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,12 +71,122 @@ window["UglyDate"] =
 "use strict";
 
 
-module.exports = __webpack_require__(9).default;
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _utility = __webpack_require__(1);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var EventDispatcher = function () {
+	function EventDispatcher() {
+		_classCallCheck(this, EventDispatcher);
+
+		this.initChannels();
+	}
+
+	_createClass(EventDispatcher, [{
+		key: 'initChannels',
+		value: function initChannels() {
+			this.channels = {};
+		}
+	}, {
+		key: 'initChannel',
+		value: function initChannel(channel) {
+			this.channels[channel] = [];
+		}
+	}, {
+		key: 'getListenersForChannel',
+		value: function getListenersForChannel(channel) {
+			if (!this.channels[channel]) {
+				this.initChannel(channel);
+			}
+
+			return this.channels[channel];
+		}
+	}, {
+		key: 'addEventListener',
+		value: function addEventListener(channel, callback) {
+			var listeners = this.getListenersForChannel(channel);
+			listeners.push(callback);
+		}
+	}, {
+		key: 'removeEventListener',
+		value: function removeEventListener(channel, callback) {
+			var listeners = this.getListenersForChannel(channel);
+			var idx = listeners.indexOf(callback);
+
+			if (idx !== -1) {
+				listeners.splice(idx, 1);
+			}
+		}
+	}, {
+		key: 'hasEventListener',
+		value: function hasEventListener(channel, callback) {
+			var listeners = this.getListenersForChannel(channel);
+			var idx = listeners.indexOf(callback);
+
+			return idx !== -1;
+		}
+	}, {
+		key: 'dispatchEvent',
+		value: function dispatchEvent(event) {
+			var _this = this;
+
+			var type = event.type;
+
+			var listeners = this.getListenersForChannel(type);
+
+			(0, _utility.forEach)(listeners, function (idx, listener) {
+				listener.call(_this, event);
+			});
+		}
+	}, {
+		key: 'removeAllListenersForChannel',
+		value: function removeAllListenersForChannel(channel) {
+			this.initChannel(channel);
+		}
+	}, {
+		key: 'removeAllListeners',
+		value: function removeAllListeners() {
+			this.initChannels();
+		}
+	}]);
+
+	return EventDispatcher;
+}();
+
+exports.default = EventDispatcher;
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var forEach = exports.forEach = function forEach(array, callback, scope) {
+	for (var i = 0; i < array.length; i++) {
+		callback.call(scope, i, array[i]);
+	}
+};
+
+var visibilityClassString = exports.visibilityClassString = function visibilityClassString() {
+	return 'uglydate-hide';
+};
+
+var withinRangeClassString = exports.withinRangeClassString = function withinRangeClassString() {
+	return 'js-uglydate-is-day-within-range';
+};
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -312,11 +422,7 @@ function kindOf(val) {
 
 
 /***/ }),
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -325,22 +431,69 @@ function kindOf(val) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var forEach = exports.forEach = function forEach(array, callback, scope) {
-	for (var i = 0; i < array.length; i++) {
-		callback.call(scope, i, array[i]);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _utility = __webpack_require__(1);
+
+var _EventDispatcher2 = __webpack_require__(0);
+
+var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Header = function (_EventDispatcher) {
+	_inherits(Header, _EventDispatcher);
+
+	function Header() {
+		_classCallCheck(this, Header);
+
+		var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
+
+		_this.element = _this.dom();
+		return _this;
 	}
-};
 
-var visibilityClassString = exports.visibilityClassString = function visibilityClassString() {
-	return 'uglydate-hide';
-};
+	_createClass(Header, [{
+		key: 'dom',
+		value: function dom() {
+			var element = document.createElement("div");
+			element.classList.add("js-uglydate-header");
 
-var withinRangeClassString = exports.withinRangeClassString = function withinRangeClassString() {
-	return 'js-uglydate-is-day-within-range';
-};
+			(0, _utility.forEach)(["S", "M", "T", "W", "Th", "F", "S"], function (idx, label) {
+				var span = document.createElement("span");
+				span.classList.add("js-uglydate-header-day");
+				span.innerText = label;
+
+				element.appendChild(span);
+			});
+
+			return element;
+		}
+	}]);
+
+	return Header;
+}(_EventDispatcher3.default);
+
+exports.default = Header;
 
 /***/ }),
-/* 9 */
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(5).default;
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -350,13 +503,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _utility = __webpack_require__(8);
+var _utility = __webpack_require__(1);
 
-var _DateSelector = __webpack_require__(10);
+var _DateSelector = __webpack_require__(6);
 
 var _DateSelector2 = _interopRequireDefault(_DateSelector);
 
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -407,7 +560,7 @@ var Main = function (_EventDispatcher) {
 exports.default = Main;
 
 /***/ }),
-/* 10 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -419,23 +572,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Calendar = __webpack_require__(12);
+var _Calendar = __webpack_require__(7);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _DateInput = __webpack_require__(13);
+var _DateInput = __webpack_require__(11);
 
 var _DateInput2 = _interopRequireDefault(_DateInput);
 
-var _NavButton = __webpack_require__(18);
+var _NavButton = __webpack_require__(12);
 
 var _NavButton2 = _interopRequireDefault(_NavButton);
 
-var _DisplayDate = __webpack_require__(19);
+var _DisplayDate = __webpack_require__(13);
 
 var _DisplayDate2 = _interopRequireDefault(_DisplayDate);
 
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -737,7 +890,7 @@ var DateSelector = function (_EventDispatcher) {
 exports.default = DateSelector;
 
 /***/ }),
-/* 11 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -749,122 +902,25 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _utility = __webpack_require__(8);
+var _utility = __webpack_require__(1);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var EventDispatcher = function () {
-	function EventDispatcher() {
-		_classCallCheck(this, EventDispatcher);
-
-		this.initChannels();
-	}
-
-	_createClass(EventDispatcher, [{
-		key: 'initChannels',
-		value: function initChannels() {
-			this.channels = {};
-		}
-	}, {
-		key: 'initChannel',
-		value: function initChannel(channel) {
-			this.channels[channel] = [];
-		}
-	}, {
-		key: 'getListenersForChannel',
-		value: function getListenersForChannel(channel) {
-			if (!this.channels[channel]) {
-				this.initChannel(channel);
-			}
-
-			return this.channels[channel];
-		}
-	}, {
-		key: 'addEventListener',
-		value: function addEventListener(channel, callback) {
-			var listeners = this.getListenersForChannel(channel);
-			listeners.push(callback);
-		}
-	}, {
-		key: 'removeEventListener',
-		value: function removeEventListener(channel, callback) {
-			var listeners = this.getListenersForChannel(channel);
-			var idx = listeners.indexOf(callback);
-
-			if (idx !== -1) {
-				listeners.splice(idx, 1);
-			}
-		}
-	}, {
-		key: 'hasEventListener',
-		value: function hasEventListener(channel, callback) {
-			var listeners = this.getListenersForChannel(channel);
-			var idx = listeners.indexOf(callback);
-
-			return idx !== -1;
-		}
-	}, {
-		key: 'dispatchEvent',
-		value: function dispatchEvent(event) {
-			var _this = this;
-
-			var type = event.type;
-
-			var listeners = this.getListenersForChannel(type);
-
-			(0, _utility.forEach)(listeners, function (idx, listener) {
-				listener.call(_this, event);
-			});
-		}
-	}, {
-		key: 'removeAllListenersForChannel',
-		value: function removeAllListenersForChannel(channel) {
-			this.initChannel(channel);
-		}
-	}, {
-		key: 'removeAllListeners',
-		value: function removeAllListeners() {
-			this.initChannels();
-		}
-	}]);
-
-	return EventDispatcher;
-}();
-
-exports.default = EventDispatcher;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _utility = __webpack_require__(8);
-
-var _Header = __webpack_require__(14);
+var _Header = __webpack_require__(3);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _Footer = __webpack_require__(15);
+var _Footer = __webpack_require__(8);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _Month = __webpack_require__(17);
+var _Month = __webpack_require__(9);
 
 var _Month2 = _interopRequireDefault(_Month);
 
-var _DayCell = __webpack_require__(16);
+var _DayCell = __webpack_require__(10);
 
 var _DayCell2 = _interopRequireDefault(_DayCell);
 
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -1135,7 +1191,7 @@ var Calendar = function (_EventDispatcher) {
 exports.default = Calendar;
 
 /***/ }),
-/* 13 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1147,158 +1203,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _utility = __webpack_require__(8);
-
-var _dateformat = __webpack_require__(3);
-
-var _dateformat2 = _interopRequireDefault(_dateformat);
-
-var _EventDispatcher2 = __webpack_require__(11);
-
-var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DateInput = function (_EventDispatcher) {
-	_inherits(DateInput, _EventDispatcher);
-
-	function DateInput(element) {
-		_classCallCheck(this, DateInput);
-
-		var _this = _possibleConstructorReturn(this, (DateInput.__proto__ || Object.getPrototypeOf(DateInput)).call(this));
-
-		_this.element = element;
-		_this.element.classList.add((0, _utility.visibilityClassString)());
-
-		var isInput = _this.element.tagName == "INPUT";
-		_this.inputElement = isInput ? _this.element : _this.element.querySelector("input");
-
-		_this.minDate = new Date(_this.inputElement.getAttribute("min"));
-		_this.maxDate = new Date(_this.inputElement.getAttribute("max"));
-		return _this;
-	}
-
-	_createClass(DateInput, [{
-		key: 'getMinimumDate',
-		value: function getMinimumDate() {
-			return this.minDate;
-		}
-	}, {
-		key: 'getMaximumDate',
-		value: function getMaximumDate() {
-			return this.maxDate;
-		}
-	}, {
-		key: 'clearValue',
-		value: function clearValue() {
-			this.inputElement.value = "";
-			this.changed();
-		}
-	}, {
-		key: 'valueUpdated',
-		value: function valueUpdated(date) {
-			this.inputElement.value = (0, _dateformat2.default)(date, "yyyy-mm-dd");
-			this.changed();
-		}
-	}, {
-		key: 'changed',
-		value: function changed() {
-			var event = new Event('change', {
-				'bubbles': true,
-				'cancelable': true
-			});
-			this.dispatchEvent({ type: "change" });
-			this.inputElement.dispatchEvent(event);
-		}
-	}]);
-
-	return DateInput;
-}(_EventDispatcher3.default);
-
-exports.default = DateInput;
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _utility = __webpack_require__(8);
-
-var _EventDispatcher2 = __webpack_require__(11);
-
-var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Header = function (_EventDispatcher) {
-	_inherits(Header, _EventDispatcher);
-
-	function Header() {
-		_classCallCheck(this, Header);
-
-		var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this));
-
-		_this.element = _this.dom();
-		return _this;
-	}
-
-	_createClass(Header, [{
-		key: 'dom',
-		value: function dom() {
-			var element = document.createElement("div");
-			element.classList.add("js-uglydate-header");
-
-			(0, _utility.forEach)(["S", "M", "T", "W", "Th", "F", "S"], function (idx, label) {
-				var span = document.createElement("span");
-				span.classList.add("js-uglydate-header-day");
-				span.innerText = label;
-
-				element.appendChild(span);
-			});
-
-			return element;
-		}
-	}]);
-
-	return Header;
-}(_EventDispatcher3.default);
-
-exports.default = Header;
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -1352,7 +1257,7 @@ var Footer = function (_EventDispatcher) {
 exports.default = Footer;
 
 /***/ }),
-/* 16 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1364,13 +1269,87 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dateformat = __webpack_require__(3);
+var _dateformat = __webpack_require__(2);
 
 var _dateformat2 = _interopRequireDefault(_dateformat);
 
-var _utility = __webpack_require__(8);
+var _Header = __webpack_require__(3);
 
-var _EventDispatcher2 = __webpack_require__(11);
+var _Header2 = _interopRequireDefault(_Header);
+
+var _EventDispatcher2 = __webpack_require__(0);
+
+var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Month = function (_EventDispatcher) {
+	_inherits(Month, _EventDispatcher);
+
+	function Month(date) {
+		_classCallCheck(this, Month);
+
+		var _this = _possibleConstructorReturn(this, (Month.__proto__ || Object.getPrototypeOf(Month)).call(this));
+
+		_this.date = date;
+		_this.element = _this.dom();
+		return _this;
+	}
+
+	_createClass(Month, [{
+		key: 'dom',
+		value: function dom() {
+			var element = document.createElement("div");
+			element.classList.add("js-uglydate-month-container");
+
+			var headerElement = document.createElement("div");
+			headerElement.classList.add("js-uglydate-month-header");
+			headerElement.innerHTML = (0, _dateformat2.default)(this.date, "mmmm");
+			element.appendChild(headerElement);
+
+			// for desktop, copy the M T W Th F thing
+			element.appendChild(new _Header2.default().element);
+
+			return element;
+		}
+	}, {
+		key: 'getDate',
+		value: function getDate() {
+			return new Date(this.date.getTime());
+		}
+	}]);
+
+	return Month;
+}(_EventDispatcher3.default);
+
+exports.default = Month;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dateformat = __webpack_require__(2);
+
+var _dateformat2 = _interopRequireDefault(_dateformat);
+
+var _utility = __webpack_require__(1);
+
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -1499,7 +1478,7 @@ var DayCell = function (_EventDispatcher) {
 exports.default = DayCell;
 
 /***/ }),
-/* 17 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1511,15 +1490,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dateformat = __webpack_require__(3);
+var _utility = __webpack_require__(1);
+
+var _dateformat = __webpack_require__(2);
 
 var _dateformat2 = _interopRequireDefault(_dateformat);
 
-var _Header = __webpack_require__(14);
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -1531,49 +1508,66 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Month = function (_EventDispatcher) {
-	_inherits(Month, _EventDispatcher);
+var DateInput = function (_EventDispatcher) {
+	_inherits(DateInput, _EventDispatcher);
 
-	function Month(date) {
-		_classCallCheck(this, Month);
+	function DateInput(element) {
+		_classCallCheck(this, DateInput);
 
-		var _this = _possibleConstructorReturn(this, (Month.__proto__ || Object.getPrototypeOf(Month)).call(this));
+		var _this = _possibleConstructorReturn(this, (DateInput.__proto__ || Object.getPrototypeOf(DateInput)).call(this));
 
-		_this.date = date;
-		_this.element = _this.dom();
+		_this.element = element;
+		_this.element.classList.add((0, _utility.visibilityClassString)());
+
+		var isInput = _this.element.tagName == "INPUT";
+		_this.inputElement = isInput ? _this.element : _this.element.querySelector("input");
+
+		_this.minDate = new Date(_this.inputElement.getAttribute("min"));
+		_this.maxDate = new Date(_this.inputElement.getAttribute("max"));
 		return _this;
 	}
 
-	_createClass(Month, [{
-		key: 'dom',
-		value: function dom() {
-			var element = document.createElement("div");
-			element.classList.add("js-uglydate-month-container");
-
-			var headerElement = document.createElement("div");
-			headerElement.classList.add("js-uglydate-month-header");
-			headerElement.innerHTML = (0, _dateformat2.default)(this.date, "mmmm");
-			element.appendChild(headerElement);
-
-			// for desktop, copy the M T W Th F thing
-			element.appendChild(new _Header2.default().element);
-
-			return element;
+	_createClass(DateInput, [{
+		key: 'getMinimumDate',
+		value: function getMinimumDate() {
+			return this.minDate;
 		}
 	}, {
-		key: 'getDate',
-		value: function getDate() {
-			return new Date(this.date.getTime());
+		key: 'getMaximumDate',
+		value: function getMaximumDate() {
+			return this.maxDate;
+		}
+	}, {
+		key: 'clearValue',
+		value: function clearValue() {
+			this.inputElement.value = "";
+			this.changed();
+		}
+	}, {
+		key: 'valueUpdated',
+		value: function valueUpdated(date) {
+			this.inputElement.value = (0, _dateformat2.default)(date, "yyyy-mm-dd");
+			this.changed();
+		}
+	}, {
+		key: 'changed',
+		value: function changed() {
+			var event = new Event('change', {
+				'bubbles': true,
+				'cancelable': true
+			});
+			this.dispatchEvent({ type: "change" });
+			this.inputElement.dispatchEvent(event);
 		}
 	}]);
 
-	return Month;
+	return DateInput;
 }(_EventDispatcher3.default);
 
-exports.default = Month;
+exports.default = DateInput;
 
 /***/ }),
-/* 18 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1585,7 +1579,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 
@@ -1648,7 +1642,7 @@ var NavButton = function (_EventDispatcher) {
 exports.default = NavButton;
 
 /***/ }),
-/* 19 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1660,13 +1654,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _utility = __webpack_require__(8);
+var _utility = __webpack_require__(1);
 
-var _dateformat = __webpack_require__(3);
+var _dateformat = __webpack_require__(2);
 
 var _dateformat2 = _interopRequireDefault(_dateformat);
 
-var _EventDispatcher2 = __webpack_require__(11);
+var _EventDispatcher2 = __webpack_require__(0);
 
 var _EventDispatcher3 = _interopRequireDefault(_EventDispatcher2);
 

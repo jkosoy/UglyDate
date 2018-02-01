@@ -51,7 +51,7 @@ module.exports = {
         // compressed version
         new UglifyJsPlugin({
             include: /\.min\.js$/,
-            sourceMap: true,
+            sourceMap: false,
             uglifyOptions: {
                 minimize: true
             }
