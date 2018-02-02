@@ -10,6 +10,13 @@ UglyDate handles date ranges well and that's all. As a purpose specific componen
 
 ![Desktop](https://github.com/jkosoy/UglyDate/raw/master/desktop.gif)
 
+### Wow that's really ugly, can it look pretty?
+
+Yep! Here are some examples that frontend developers were able to do in under a day:
+
+![Ticketing](https://github.com/jkosoy/UglyDate/raw/master/example-ticketing.gif)
+
+![Hotel Site](https://github.com/jkosoy/UglyDate/raw/master/example-hotel.gif)
 
 ### Features
 
