@@ -9,6 +9,7 @@ class DisplayDate extends EventDispatcher {
 
 		this.element = element
 		this.element.setAttribute("type", "text")
+		this.element.setAttribute("name", "full-date")
 		this.element.setAttribute("readonly", "readonly")
 		this.element.classList.add("js-uglydate-text-input")
 		this.element.setAttribute("id", "js-uglydate-text-input")

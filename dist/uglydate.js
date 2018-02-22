@@ -1682,6 +1682,7 @@ var DisplayDate = function (_EventDispatcher) {
 
 		_this.element = element;
 		_this.element.setAttribute("type", "text");
+		_this.element.setAttribute("name", "full-date");
 		_this.element.setAttribute("readonly", "readonly");
 		_this.element.classList.add("js-uglydate-text-input");
 		_this.element.setAttribute("id", "js-uglydate-text-input");
